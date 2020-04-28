@@ -53,10 +53,37 @@
 288  git status
 290  git log --oneline
 291  history
+292  git pull
+293  git checkout feature
+294  git status
+295  git add notes/NOTES.md
+296  git commit -m "added latest git activities to notes.md"
+297  git push -u origin master
+298  git pull
+299  git checkout feature
+300  git status
+301  git status
+302  git add game/snake_main.py
+303  git status
+304  git commit -m "added game over-screen to python_main"
+305  git push -u origin feature
+306  git status
+307  git add game/snake_functions.py
+308  git commit -m"
+cleaned the file a little"
+309  git status
+310  git push -u origin feature
+311  git log --oneline
+312  git checkout master
+313  git add notes/NOTES.md
+314  git commit -m "rearranged git activity-tab"
+315  git push
+316  history
 
 
-### Git activity:
+### Git activity master-branch:
 
+(HEAD -> master, origin/master) added latest git activities to notes.md
 (HEAD -> master, origin/master) added the recent commits to notes.md
 added the version 1 folder to .gitignore
 (HEAD -> master) added game-folder, which contains snake_main, the main method of the game and snake_functions, the functions used by the game
@@ -65,5 +92,12 @@ added notes.md for teacher
 Revert "added history.txt, which contains notes for teacher."
 added history.txt, which contains notes for teacher.
 (origin/master) First commit
+
+### Git activity feature-branch:
+
+(HEAD -> feature, origin/feature) cleaned the file a little
+added game over-screen to python_main
+
+
 
 
