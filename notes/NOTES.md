@@ -26,8 +26,23 @@
 257  git push
 258  git log --oneline
 259  history
+260  git status
+261  git add notes/NOTES.md
+262  git status
+263  git commit -m "added new commits to NOTES.md"
+264  git push
+265  git status
+266  history
 
-
+267  mkdir 1
+268  cd 1
+273  curl -OL https://github.com/Intomies/python_snake/archive/1.0.zip
+274  dir
+276  cd ..
+277  echo /1 >> .gitignore
+278  cat .gitignore
+279  git status
+280  history
 
 ### Git activity:
 
