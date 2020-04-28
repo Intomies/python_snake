@@ -43,13 +43,27 @@
 278  cat .gitignore
 279  git status
 280  history
+281  git status
+282  git add .gitignore
+283  git status
+284  git commit -m "added the version 1 folder to .gitignore"
+285  git add notes/NOTES.md
+286  git commit -m "added the recent commits to notes.md"
+287  git push -u origin master
+288  git status
+290  git log --oneline
+291  history
+
 
 ### Git activity:
 
-(origin/master) First commit
+(HEAD -> master, origin/master) added the recent commits to notes.md
+added the version 1 folder to .gitignore
 (HEAD -> master) added game-folder, which contains snake_main, the main method of the game and snake_functions, the functions used by the game
 (origin/master) added .gitignore for project
 added notes.md for teacher
 Revert "added history.txt, which contains notes for teacher."
 added history.txt, which contains notes for teacher.
+(origin/master) First commit
+
 
