@@ -31,10 +31,10 @@
 
 ### Git activity:
 
-(origin/master) First commit
 (HEAD -> master) added game-folder, which contains snake_main, the main method of the game and snake_functions, the functions used by the game
 (origin/master) added .gitignore for project
 added notes.md for teacher
 Revert "added history.txt, which contains notes for teacher."
 added history.txt, which contains notes for teacher.
+(origin/master) First commit
 
