@@ -17,9 +17,9 @@ def show_message(msg, color, display, display_w, display_h, font_style):
     display.blit(mess, [display_w / 20, display_h / 2])
 
 # Draws the snake on display
-def draw_snake(snake_size, snake_parts, snake_color, display):
-    for i in snake_parts:
-        pygame.draw.rect(display, snake_color, [i[0], i[1], snake_size, snake_size])
+def draw_snake(brick_size, snake_container, snake_color, display):
+    for i in snake_container:
+        pygame.draw.rect(display, snake_color, [i[0], i[1], brick_size, brick_size])
 
     
 
