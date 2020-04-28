@@ -24,7 +24,7 @@ class Food(Brick):
         self.exists = exists
 
 
-def main(): 
+def main():
     
     pygame.init()
 
@@ -76,7 +76,33 @@ def main():
     game_on = True
     game_over = False
 
+    # Game loop
     while game_on:
+
+        while game_over:
+            
+            display.fill(blue)
+            sf.show_message(
+                        'Your snake is done for. Press e to play again or q to quit.', 
+                        red, 
+                        display,
+                        display_w,
+                        display_h,
+                        font_style
+                        )
+            pygame.display.update()
+
+            for e in pygame.event.get():
+
+                if e.type == pygame.QUIT:
+                    game_on = False
+
+                if e.type == pygame.KEYDOWN:
+                    if e.key == pygame.K_q:
+                        game_on = False
+                        game_over = False
+                    if e.key == pygame.K_e:
+                        main()
 
         for e in pygame.event.get():
             
