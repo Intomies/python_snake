@@ -29,7 +29,7 @@ def main():
     pygame.init()
 
     # Stylings
-    font_style = pygame.font.SysFont(None, 26)
+    font_style = pygame.font.SysFont(None, 32)
     red = (255,0,0)
     blue = (50,50,255)
     black = (0,0,0)
@@ -83,7 +83,7 @@ def main():
             
             display.fill(blue)
             sf.show_message(
-                        'Your snake is done for. Press e to play again or q to quit.', 
+                        'Game Over! Your Score: ' + str(score), 
                         red, 
                         display,
                         display_w,
@@ -123,7 +123,7 @@ def main():
                     _snake.speed_x = 0
                     _snake.speed_y = move_speed
                 if e.key == pygame.K_q:
-                    game_on = False
+                    game_over = True
         
         _snake.pos_x += _snake.speed_x
         _snake.pos_y += _snake.speed_y
@@ -159,15 +159,15 @@ def main():
                 game_over = True
         
         sf.draw_snake(_snake.size, snake_container, _snake.color, display)
+        sf.show_score(display, score, font_style, red)
 
         pygame.display.update()
         
-        if _snake.pos_x == _food.pos_x and _snake.pos_y == _food.pos_y:
-            score += 1
-            _snake.length += 1
+        if sf.check_food_hit(_snake.pos_x, _snake.pos_y, _food.pos_x, _food.pos_y, _food.size):
             _snake.color = _food.color
+            _snake.length += 1
             _food.exists = False
-            print('score:', score)
+            score += 1
             if score % 5 and score != 0:
                 _snake.game_speed += 1
         
@@ -177,5 +177,6 @@ def main():
     quit()
 
 
-if __name__ == "__main__": main()
+if __name__ == "__main__": 
+    main()
 
