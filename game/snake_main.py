@@ -25,11 +25,10 @@ class Food(Brick):
 
 
 def main():
-    
-    pygame.init()
 
     # Stylings
-    font_style = pygame.font.SysFont(None, 32)
+    font_size = 32
+    font_style = pygame.font.SysFont(None, font_size)
     red = (255,0,0)
     blue = (50,50,255)
     black = (0,0,0)
@@ -72,6 +71,8 @@ def main():
                 )
 
     # Game init
+    highscore = sf.check_if_highscore_list_exists()
+    new_highscore = False
     score = 0
     game_on = True
     game_over = False
@@ -81,13 +82,32 @@ def main():
 
         while game_over:
             
-            display.fill(blue)
-            sf.show_message(
-                        'Game Over! Your Score: ' + str(score), 
+            display.fill(black)
+            
+            if new_highscore:
+                sf.show_message(
+                        'Game Over! NEW HIGHSCORE: ' + str(score), 
                         red, 
                         display,
                         display_w,
                         display_h,
+                        font_style
+                        )
+            else:
+                sf.show_message(
+                            'Game Over! Your Score: ' + str(score), 
+                            red, 
+                            display,
+                            display_w,
+                            display_h,
+                            font_style
+                            )
+            sf.show_message(
+                        '(q)uit, (n)ew', 
+                        red, 
+                        display,
+                        display_w,
+                        display_h + 100,
                         font_style
                         )
             pygame.display.update()
@@ -96,12 +116,13 @@ def main():
 
                 if e.type == pygame.QUIT:
                     game_on = False
+                    game_over = False
 
                 if e.type == pygame.KEYDOWN:
                     if e.key == pygame.K_q:
                         game_on = False
                         game_over = False
-                    if e.key == pygame.K_e:
+                    if e.key == pygame.K_n:
                         main()
 
         for e in pygame.event.get():
@@ -124,6 +145,7 @@ def main():
                     _snake.speed_y = move_speed
                 if e.key == pygame.K_q:
                     game_over = True
+                    new_highscore = sf.check_if_new_highscore(score)
         
         _snake.pos_x += _snake.speed_x
         _snake.pos_y += _snake.speed_y
@@ -139,9 +161,9 @@ def main():
             _snake.pos_y = display_h
 
         if _food.exists:
-            pygame.draw.rect(display,food_color,[int(_food.pos_x),int(_food.pos_y),_food.size,_food.size])
+            pygame.draw.rect(display,_food.color,[int(_food.pos_x),int(_food.pos_y),_food.size,_food.size])
         else:
-            food_color = (sf.random_color())
+            _food.color = (sf.random_color())
             _food.pos_x = sf.random_position(display_w, _food.size)
             _food.pos_y = sf.random_position(display_h, _food.size)
             _food.exists = True
@@ -157,9 +179,11 @@ def main():
         for i in snake_container[:-1]:
             if i == snake_head:
                 game_over = True
+                new_highscore = new_highscore = sf.check_if_new_highscore(score)
         
         sf.draw_snake(_snake.size, snake_container, _snake.color, display)
-        sf.show_score(display, score, font_style, red)
+        sf.show_scores(display, ('Score: ' + str(score)), font_style, red, [0,0])
+        sf.show_scores(display, ('Highscore: ' + str(highscore)), font_style, blue, [0,25])
 
         pygame.display.update()
         
@@ -173,10 +197,13 @@ def main():
         
         clock.tick(_snake.game_speed)
 
-    pygame.quit()
+    
     quit()
 
 
 if __name__ == "__main__": 
+    pygame.init()
+    sf.check_if_highscore_list_exists()
     main()
+    pygame.quit()
 
