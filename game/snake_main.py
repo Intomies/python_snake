@@ -81,9 +81,10 @@ def main():
     # Main game loop
     while main_game_on:
 
+        # Displays the starting-screen
         while starting_screen:
             
-            display.fill(black)
+            display.fill(display_background)
             
             sf.show_message(
                         'SNAKE', 
@@ -124,11 +125,13 @@ def main():
             
             pygame.display.update()
         
+        # Displays the Game Over-screen
         while game_over_screen:
             
-            display.fill(black)
+            display.fill(display_background)
             
             if new_highscore:
+                clock.tick(3)
                 sf.show_message(
                             'NEW HIGHSCORE!',
                             sf.random_color(), 
@@ -170,12 +173,11 @@ def main():
                     if e.key == pygame.K_q or e.key == pygame.K_ESCAPE:
                         main()
 
-        
+        # Snake controls
         for e in pygame.event.get():
             
             if e.type == pygame.QUIT:
                 starting_screen = False
-                play_screen = False
                 game_over_screen = False
                 main_game_on = False
 
@@ -194,13 +196,19 @@ def main():
                     _snake.speed_y = move_speed
                 if e.key == pygame.K_q or e.key == pygame.K_ESCAPE:
                     game_over_screen = True
-                    play_screen = False
                     new_highscore = sf.check_if_new_highscore(player_score)
         
+        # Snakes movement. Head is in separate array so that it can be checked if it hits the tail 
         _snake.pos_x += _snake.speed_x
         _snake.pos_y += _snake.speed_y
+        snake_head = []
+        snake_head.append(_snake.pos_x)
+        snake_head.append(_snake.pos_y)
+        snake_container.append(snake_head)
+        
         display.fill(display_background)
 
+        # This sends snake to the other side of the screen if it goes over displayed area
         if _snake.pos_x >= display_w:
             _snake.pos_x = 0
         if _snake.pos_x < 0:
@@ -210,6 +218,7 @@ def main():
         if _snake.pos_y < 0:
             _snake.pos_y = display_h
 
+        # This draws the food. If it gets eaten, creates a new one with new color and position.
         if _food.exists:
             pygame.draw.rect(display,_food.color,[int(_food.pos_x),int(_food.pos_y),_food.size,_food.size])
         else:
@@ -217,20 +226,8 @@ def main():
             _food.pos_x = sf.random_position(display_w, _food.size)
             _food.pos_y = sf.random_position(display_h, _food.size)
             _food.exists = True
-        
-        snake_head = []
-        snake_head.append(_snake.pos_x)
-        snake_head.append(_snake.pos_y)
-        snake_container.append(snake_head)
 
-        if len(snake_container) > _snake.length:
-            del snake_container[0]
-        
-        for i in snake_container[:-1]:
-            if i == snake_head:
-                game_over_screen = True
-                new_highscore = new_highscore = sf.check_if_new_highscore(player_score)
-
+        # This checks if the food gets eaten. If it does, player gets a point and every 5 points the game gets faster.
         if sf.check_food_hit(_snake.pos_x, _snake.pos_y, _food.pos_x, _food.pos_y, _food.size):
             _snake.color = _food.color
             _snake.length += 1
@@ -238,11 +235,23 @@ def main():
             player_score += 1
             if player_score % 5 and player_score != 0:
                 _snake.game_speed += 1
+
+        # This keeps up snakes length
+        if len(snake_container) > _snake.length:
+            del snake_container[0]
         
+        # This checks if the snakes head hits its tail. If it does, checks if playr score is a new highscore and launches the Game Over-screen 
+        for i in snake_container[:-1]:
+            if i == snake_head:
+                game_over_screen = True
+                new_highscore = sf.check_if_new_highscore(player_score)
+        
+        # This draws the snake and shows scores on display
         sf.draw_snake(_snake.size, snake_container, _snake.color, display)
         sf.show_scores(display, ('Score: ' + str(player_score)), font_style_basic, red, [0,0])
         sf.show_scores(display, ('Highscore: ' + str(highscore)), font_style_basic, blue, [0,25])
 
+        # These keep everything animated
         pygame.display.update()
         clock.tick(_snake.game_speed)
 
