@@ -23,13 +23,13 @@ class Food(Brick):
         Brick.__init__(self, color, size, pos_x, pos_y)
         self.exists = exists
 
-
 def main():
 
     # Stylings
-    font_size = 32
-    font_style = pygame.font.SysFont(None, font_size)
+    font_style_head = pygame.font.SysFont(None, 52)
+    font_style_basic = pygame.font.SysFont(None, 32)
     red = (255,0,0)
+    green = (0,255,0)
     blue = (50,50,255)
     black = (0,0,0)
     brick_size = 10
@@ -41,66 +41,109 @@ def main():
     display = pygame.display.set_mode((display_w,display_h))
     pygame.display.set_caption('Snake')
 
-    # Movement speed settings
+    # Clock and movement speed settings
     clock = pygame.time.Clock()
     clock_speed = 20
     move_speed = 5
 
     # Snake settings
     snake_container = []
-    start_x = int(display_w/2)
-    start_y = int(display_h/2)
     _snake = Snake(
                 red, 
                 brick_size, 
-                start_x, 
-                start_y, 
+                int(display_w/2), 
+                int(display_h/2), 
                 move_speed, 
                 0, 
                 clock_speed,
                 1
                 )
+   
     # Food settings
-    food_color = sf.random_color()
     _food = Food(
-                food_color, 
+                sf.random_color(), 
                 brick_size, 
                 sf.random_position(display_w, brick_size), 
                 sf.random_position(display_h, brick_size), 
                 True
                 )
-
-    # Game init
+    
+    # Scores
     highscore = sf.check_if_highscore_list_exists()
     new_highscore = False
-    score = 0
-    game_on = True
-    game_over = False
+    player_score = 0
+    
+    # Game screen control
+    main_game_on = True
+    starting_screen = True
+    play_screen = False
+    game_over_screen = False
 
-    # Game loop
-    while game_on:
+    # Main game loop
+    while main_game_on:
 
-        while game_over:
+        while starting_screen:
+            
+            display.fill(black)
+            
+            sf.show_message(
+                        'SNAKE', 
+                        green, 
+                        display,
+                        display_w,
+                        display_h - 100,
+                        font_style_head
+                        )
+            sf.show_message(
+                        '(q)uit, (n)ew', 
+                        red, 
+                        display,
+                        display_w,
+                        display_h + 100,
+                        font_style_basic
+                        )
+            
+            for e in pygame.event.get():
+
+                if e.type == pygame.QUIT:
+                    starting_screen = False
+                    play_screen = False
+                    game_over_screen = False
+                    main_game_on = False
+
+                if e.type == pygame.KEYDOWN:
+                    if e.key == pygame.K_q or e.key == pygame.K_ESCAPE:
+                        starting_screen = False
+                        play_screen = False
+                        game_over_screen = False
+                        main_game_on = False
+                    if e.key == pygame.K_n:
+                        starting_screen = False
+                        play_screen = True
+            
+            pygame.display.update()
+        
+        while game_over_screen:
             
             display.fill(black)
             
             if new_highscore:
                 sf.show_message(
-                        'Game Over! NEW HIGHSCORE: ' + str(score), 
-                        red, 
-                        display,
-                        display_w,
-                        display_h,
-                        font_style
-                        )
-            else:
-                sf.show_message(
-                            'Game Over! Your Score: ' + str(score), 
+                            'Game Over! NEW HIGHSCORE: ' + str(player_score), 
                             red, 
                             display,
                             display_w,
                             display_h,
-                            font_style
+                            font_style_basic
+                            )
+            else:
+                sf.show_message(
+                            'Game Over! Your Score: ' + str(player_score), 
+                            red, 
+                            display,
+                            display_w,
+                            display_h,
+                            font_style_basic
                             )
             sf.show_message(
                         '(q)uit, (n)ew', 
@@ -108,94 +151,102 @@ def main():
                         display,
                         display_w,
                         display_h + 100,
-                        font_style
+                        font_style_basic
                         )
             pygame.display.update()
 
             for e in pygame.event.get():
 
                 if e.type == pygame.QUIT:
-                    game_on = False
-                    game_over = False
+                    starting_screen = False
+                    play_screen = False
+                    game_over_screen = False
+                    main_game_on = False
 
                 if e.type == pygame.KEYDOWN:
-                    if e.key == pygame.K_q:
-                        game_on = False
-                        game_over = False
+                    if e.key == pygame.K_q or e.key == pygame.K_ESCAPE:
+                        game_over_screen = False
+                        starting_screen = True
                     if e.key == pygame.K_n:
-                        main()
+                        game_over_screen= False
+                        starting_screen = True
 
-        for e in pygame.event.get():
+        while play_screen:
+            for e in pygame.event.get():
+                
+                if e.type == pygame.QUIT:
+                    starting_screen = False
+                    play_screen = False
+                    game_over_screen = False
+                    main_game_on = False
+
+                if e.type == pygame.KEYDOWN:
+                    if e.key == pygame.K_LEFT and _snake.speed_x != move_speed:
+                        _snake.speed_x = move_speed * -1
+                        _snake.speed_y = 0
+                    if e.key == pygame.K_RIGHT and _snake.speed_x != move_speed * -1:
+                        _snake.speed_x = move_speed
+                        _snake.speed_y = 0
+                    if e.key == pygame.K_UP and _snake.speed_y != move_speed:
+                        _snake.speed_x = 0
+                        _snake.speed_y = move_speed * -1
+                    if e.key == pygame.K_DOWN and _snake.speed_y != move_speed * -1:
+                        _snake.speed_x = 0
+                        _snake.speed_y = move_speed
+                    if e.key == pygame.K_q or e.key == pygame.K_ESCAPE:
+                        game_over_screen = True
+                        play_screen = False
+                        new_highscore = sf.check_if_new_highscore(player_score)
             
-            if e.type == pygame.QUIT:
-                game_on = False
+            _snake.pos_x += _snake.speed_x
+            _snake.pos_y += _snake.speed_y
+            display.fill(display_background)
 
-            if e.type == pygame.KEYDOWN:
-                if e.key == pygame.K_LEFT and _snake.speed_x != move_speed:
-                    _snake.speed_x = move_speed * -1
-                    _snake.speed_y = 0
-                if e.key == pygame.K_RIGHT and _snake.speed_x != move_speed * -1:
-                    _snake.speed_x = move_speed
-                    _snake.speed_y = 0
-                if e.key == pygame.K_UP and _snake.speed_y != move_speed:
-                    _snake.speed_x = 0
-                    _snake.speed_y = move_speed * -1
-                if e.key == pygame.K_DOWN and _snake.speed_y != move_speed * -1:
-                    _snake.speed_x = 0
-                    _snake.speed_y = move_speed
-                if e.key == pygame.K_q:
-                    game_over = True
-                    new_highscore = sf.check_if_new_highscore(score)
-        
-        _snake.pos_x += _snake.speed_x
-        _snake.pos_y += _snake.speed_y
-        display.fill(display_background)
+            if _snake.pos_x >= display_w:
+                _snake.pos_x = 0
+            if _snake.pos_x < 0:
+                _snake.pos_x = display_w
+            if _snake.pos_y >= display_h:
+                _snake.pos_y = 0
+            if _snake.pos_y < 0:
+                _snake.pos_y = display_h
 
-        if _snake.pos_x >= display_w:
-            _snake.pos_x = 0
-        if _snake.pos_x < 0:
-            _snake.pos_x = display_w
-        if _snake.pos_y >= display_h:
-            _snake.pos_y = 0
-        if _snake.pos_y < 0:
-            _snake.pos_y = display_h
+            if _food.exists:
+                pygame.draw.rect(display,_food.color,[int(_food.pos_x),int(_food.pos_y),_food.size,_food.size])
+            else:
+                _food.color = (sf.random_color())
+                _food.pos_x = sf.random_position(display_w, _food.size)
+                _food.pos_y = sf.random_position(display_h, _food.size)
+                _food.exists = True
+            
+            snake_head = []
+            snake_head.append(_snake.pos_x)
+            snake_head.append(_snake.pos_y)
+            snake_container.append(snake_head)
 
-        if _food.exists:
-            pygame.draw.rect(display,_food.color,[int(_food.pos_x),int(_food.pos_y),_food.size,_food.size])
-        else:
-            _food.color = (sf.random_color())
-            _food.pos_x = sf.random_position(display_w, _food.size)
-            _food.pos_y = sf.random_position(display_h, _food.size)
-            _food.exists = True
-        
-        snake_head = []
-        snake_head.append(_snake.pos_x)
-        snake_head.append(_snake.pos_y)
-        snake_container.append(snake_head)
+            if len(snake_container) > _snake.length:
+                del snake_container[0]
+            
+            for i in snake_container[:-1]:
+                if i == snake_head:
+                    game_over_screen = True
+                    play_screen = False
+                    new_highscore = new_highscore = sf.check_if_new_highscore(player_score)
 
-        if len(snake_container) > _snake.length:
-            del snake_container[0]
-        
-        for i in snake_container[:-1]:
-            if i == snake_head:
-                game_over = True
-                new_highscore = new_highscore = sf.check_if_new_highscore(score)
-        
-        sf.draw_snake(_snake.size, snake_container, _snake.color, display)
-        sf.show_scores(display, ('Score: ' + str(score)), font_style, red, [0,0])
-        sf.show_scores(display, ('Highscore: ' + str(highscore)), font_style, blue, [0,25])
+            if sf.check_food_hit(_snake.pos_x, _snake.pos_y, _food.pos_x, _food.pos_y, _food.size):
+                _snake.color = _food.color
+                _snake.length += 1
+                _food.exists = False
+                player_score += 1
+                if player_score % 5 and player_score != 0:
+                    _snake.game_speed += 1
+            
+            sf.draw_snake(_snake.size, snake_container, _snake.color, display)
+            sf.show_scores(display, ('Score: ' + str(player_score)), font_style_basic, red, [0,0])
+            sf.show_scores(display, ('Highscore: ' + str(highscore)), font_style_basic, blue, [0,25])
 
-        pygame.display.update()
-        
-        if sf.check_food_hit(_snake.pos_x, _snake.pos_y, _food.pos_x, _food.pos_y, _food.size):
-            _snake.color = _food.color
-            _snake.length += 1
-            _food.exists = False
-            score += 1
-            if score % 5 and score != 0:
-                _snake.game_speed += 1
-        
-        clock.tick(_snake.game_speed)
+            pygame.display.update()
+            clock.tick(_snake.game_speed)
 
     
     quit()
