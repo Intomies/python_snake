@@ -31,35 +31,36 @@ def show_scores(display, msg, font_style, color, position):
 # Check if highscorelist exists and return current highscore
 # If the list doesn't exist, creates new list with higscore set to 0
 def check_if_highscore_list_exists():
-    hs_file = "hs.txt"
+    hs_file = './game/hs.txt'
     try:
-        f = open(hs_file, "r")
+        f = open(hs_file, 'r')
         f_contents = f.read()
         return int(re.findall(r"\b\d+\b", f_contents)[0])
     except:
-        f = open(hs_file, "w")
-        f.write("Highscore: " + str(0))
+        f = open(hs_file, 'w')
+        f.write('Highscore: ' + str(0))
         f.close()
-        f = open(hs_file, "r")
+        f = open(hs_file, 'r')
         f_contents = f.read()
-        return int(re.findall(r"\b\d+\b", f_contents)[0])
+        return int(re.findall(r'\b\d+\b', f_contents)[0])
     finally:
         f.close()
 
+# Checks if players score is bigger than current highscore, and sets it to be if so.
 def check_if_new_highscore(player_score):
-    hs_file = "hs.txt"
-    f = open(hs_file, "r")
+    hs_file = './game/hs.txt'
+    f = open(hs_file, 'r')
     f_contents = f.read()
     f.close()
-    if int(re.findall(r"\b\d+\b", f_contents)[0]) < player_score:
-        f = open(hs_file, "w")
-        f.write("Highscore: " + str(player_score))
+    if int(re.findall(r'\b\d+\b', f_contents)[0]) < player_score:
+        f = open(hs_file, 'w')
+        f.write('Highscore: ' + str(player_score))
         f.close()
         return True
     else:
         return False
 
-# Larger hit area for food
+# Creates a larger hit area for food
 def check_food_hit(snake_pos_x, snake_pos_y, food_pos_x, food_pos_y, food_size):
     hit_area = food_size/2
     # Left

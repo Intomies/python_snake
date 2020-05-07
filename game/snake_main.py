@@ -95,7 +95,7 @@ def main():
                         font_style_head
                         )
             sf.show_message(
-                        '(q)uit, (n)ew', 
+                        '(n)ew, (q)uit', 
                         red, 
                         display,
                         display_w,
