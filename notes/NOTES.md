@@ -177,9 +177,7 @@
   
   448  history
   
-  
-  
-  -- I dont't know what happened here, but a big paart of my command history has vanished. Luckily the merge, merge conflict and commits can be seen in git log--
+ #### I dont't know what happened here, but a big paart of my command history has vanished. Luckily the merge, merge conflict and commits can be seen in git log--
 
   436  git status
   
@@ -255,7 +253,7 @@
   
   472  history
   
-  -- I'll stop here, because the project is ready. After this I will push these notes in Git.--
+  #### I'll stop here, because the project is ready. After this I will push these notes in Git.
 
 ### Git activity from latest to oldest:
 
