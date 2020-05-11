@@ -10,6 +10,8 @@ I also made a couple of [releases](https://github.com/Intomies/python_snake/rele
 
 There is also [NOTES.md-file](https://github.com/Intomies/python_snake/blob/master/notes/NOTES.md) included in the repo, which is meant for the teacher. It contains the Git-history of this project.
 
+I compiled the game to be excecutable with [PyInstaller](https://pypi.org/project/PyInstaller/). Executable version is contained in [snake.rar](https://github.com/Intomies/python_snake/blob/master/snake.rar). Rar contains all the files needed to play, just unpack it and use the snake.exe to start the game. I know the compiled version is pretty awkward, but it works. I also will delete the rar from this repo when the course is over.
+
 
 
 
