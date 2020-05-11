@@ -253,9 +253,35 @@
   
   472  history
   
-  #### I'll stop here, because the project is ready. After this I will push these notes in Git.
+  479  curl -OL https://github.com/Intomies/python_snake/archive/3.zip
+  
+  480  git status
+  
+  481  git status
+  
+  482  git pull
+  
+  483  git status
+  
+  484  git add snake.py
+  
+  485  git add hs.txt
+  
+  486  git add .gitignore
+  
+  487  git add game
+  
+  488  git status
+  
+  489  git status
+  
+  490  git commit -m "Huge commit. Decided to move the whole game into one file, and reworked a lot of stuff to be more OOP. Added a class for game texts and moved almost all functions to be class specific. Also styled the game a little and commented all code."
+  
+  491  history
 
 ### Git activity from latest to oldest:
+
+  (HEAD -> master, origin/master) Huge commit. Decided to move the whole game into one file, and reworked       a lot of stuff to be more OOP. Added a class for game texts and moved almost all functions to be class specific. Also styled the game a little and commented all code.
 
   (HEAD -> master, origin/master) minor fixes
   
