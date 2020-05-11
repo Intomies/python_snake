@@ -136,11 +136,6 @@ def random_color():
             int((random.randrange(10, 255) / 10.0) * 10.0),
             int((random.randrange(10, 255) / 10.0) * 10.0))
 
-# Constructs attributes for message
-def show_message(msg, color, display, display_w, display_h, font_style):
-    mess = font_style.render(msg, True, color)
-    mess_rect = mess.get_rect(center = (display_w / 2, display_h / 2))
-    display.blit(mess, mess_rect)
 
 # Check if highscorelist exists and return current highscore
 # If the list doesn't exist, creates new list with higscore set to 0
