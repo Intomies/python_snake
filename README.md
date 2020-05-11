@@ -1,6 +1,6 @@
 # python_snake
 
-This is a Snake game made with [Python 3](https://www.python.org/downloads/release/python-373/) "Python 3.7.3" and [Pygame](https://www.pygame.org/ "Pygame's Homepage").
+This is a Snake game made with [Python 3](https://www.python.org/downloads/release/python-373/) and [Pygame](https://www.pygame.org/ "Pygame's Homepage").
 
 ## About this project
 
