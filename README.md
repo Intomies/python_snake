@@ -1,21 +1,14 @@
 # python_snake
 
-This is a Snake game made with Python and Pygame.
-If you wish to install Pygame use
-
-`python3 -m pip install -U pygame --user` on Windows,
-
-`python3 -m pip install -U pygame==2.0.0.dev6 --user` on Mac,
-
-`sudo apt-get install python3-pygame` on Debian/Ubuntu/Mint or
-
-`sudo yum install python3-pygame` on Fedora/Red hat.
-
-You can get more info about Pygame from [the projects Homepage](https://www.pygame.org/ "Pygame's Homepage").
+This is a Snake game made with [Python 3](https://www.python.org/downloads/release/python-373/) "Python 3.7.3" and [Pygame](https://www.pygame.org/ "Pygame's Homepage").
 
 ## About this project
 
-I made this project for school assingment and to learn how OOP works in Python. I am pretty much a noob with Python, so I thought that making a basic Snake-game would be a fun way to learn the language. 
+I made this project for school assingment and to learn how OOP works in Python. I am pretty much a noob with Python, so I thought that making a basic Snake-game would be a fun way to learn the language, and it really was. I tried my best to make the code as readable as possible, and the best info about the code you can get by reading the comments in the [snake.py-file](https://github.com/Intomies/python_snake/blob/master/snake.py). 
+
+I also made a couple of [releases](https://github.com/Intomies/python_snake/releases) along the way, so if you want, you can check those out and see how the code evolved.
+
+There is also [NOTES.md-file](https://github.com/Intomies/python_snake/blob/master/notes/NOTES.md) included in the repo, which is meant for the teacher. It contains the Git-history of this project.
 
 
 
