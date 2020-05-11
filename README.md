@@ -12,8 +12,7 @@ There is also [NOTES.md-file](https://github.com/Intomies/python_snake/blob/mast
 
 I compiled the game with [PyInstaller](https://pypi.org/project/PyInstaller/) to be excecutable. Executable version is contained in [snake.rar](https://github.com/Intomies/python_snake/blob/master/snake.rar). Rar contains all the files needed to play, just unpack it and use the snake.exe to start the game. I know the compiled version is pretty awkward, but it works. I also will delete the rar from this repo when the course is over.
 
-
-
+If you want to run the game via command line/editor, you need to pull [snake.py](https://github.com/Intomies/python_snake/blob/master/snake.py)-file. You can also pull the [hs.txt](https://github.com/Intomies/python_snake/blob/master/hs.txt)-file, which contains the highscore, but this is not necessary. If you dont pull hs.txt, snake.py-file will create it for you on first run, because without this file the game will crash.
 
 
 
