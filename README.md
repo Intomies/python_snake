@@ -4,7 +4,7 @@ This is a Snake game made with [Python 3](https://www.python.org/downloads/relea
 
 ## About this project
 
-I made this project for school assingment and to learn how OOP works in Python. I am pretty much a noob with Python, so I thought that making a basic Snake-game would be a fun way to learn the language, and it really was. I tried my best to make the code as readable as possible, and the best info about the code you can get by reading the comments in the [snake.py-file](https://github.com/Intomies/python_snake/blob/master/snake.py). 
+I made this project for school assingment and to learn how OOP works in Python. I am pretty much a noob with Python, so I thought that making a basic Snake-game would be a fun way to learn the language, and it really was. I tried my best to make the code as readable as possible, and the best info about the code you can get by reading the comments in the [snake.py](https://github.com/Intomies/python_snake/blob/master/snake.py)-file. 
 
 I also made a couple of [releases](https://github.com/Intomies/python_snake/releases) along the way, so if you want, you can check those out and see how the code evolved.
 
